@@ -2,7 +2,7 @@
   "name": "kasmiri-hospital",
   "version": "1.0.0",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build && mkdir -p dist/media && (cp -r ../backend/media/* dist/media/ || true)",
+    "build": "npm run build --prefix frontend && mkdir -p frontend/dist/media && (cp -rf backend/media/* frontend/dist/media/ || true)",
     "install": "cd frontend && npm install"
   }
 }

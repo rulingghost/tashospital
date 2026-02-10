@@ -11,6 +11,13 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [login, { isLoading, error }] = useLoginMutation();
     const dispatch = useDispatch();
+    const token = useSelector(state => state.auth.token);
+
+    React.useEffect(() => {
+        if (token) {
+            navigate("/patients");
+        }
+    }, [token, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

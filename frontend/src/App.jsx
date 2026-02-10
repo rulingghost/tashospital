@@ -55,6 +55,12 @@ import NabizLayout from './pages/enabiz/NabizLayout'
 import NabizNotFound from './pages/enabiz/NotFound'
 import NabizPatient from './pages/enabiz/NabizPatient'
 import Test from './pages/enabiz/Test'
+import { useSelector } from 'react-redux';
+
+const RootRedirect = () => {
+  const token = useSelector(state => state.auth.token);
+  return <Navigate to={token ? "/patients" : "/login"} replace />;
+};
 
 function App() {  
 
@@ -62,7 +68,7 @@ function App() {
     { path: "/",
       element: <RootLayout />,
       children: [
-        {path: "/", element: <Navigate to="/login" />},
+        {path: "/", element: <RootRedirect />},
         { path : "/calendar", element: <Calender />},
         { path : "/patients", 
           element : <PatientLayout /> ,

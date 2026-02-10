@@ -3,9 +3,11 @@
 from django.urls import path
 from . import views
 from .views import StockSummaryView, StockWarehouseSummaryView, StockTotalSummaryView
+from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
     path('token/', views.CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('notes/', views.NoteListCreateAPIView.as_view(), name='item-list'),
     path('notes/<int:pk>/', views.NoteDetailAPIView.as_view(), name='item-detail'),
     path('patientcard/', views.PatientCardListCreateAPIView.as_view(), name='patientcard-list'),

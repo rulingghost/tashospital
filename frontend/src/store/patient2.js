@@ -24,7 +24,7 @@ const patientAPI = createApi({
         }),
         refreshToken: builder.mutation({
             query: (refreshToken) => ({
-                url: 'token/',
+                url: 'token/refresh/',
                 method: 'POST',
                 body: { refresh: refreshToken },
             }),

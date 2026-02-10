@@ -1,25 +1,35 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "frontend/dist/**",
+      "use": "@vercel/static"
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/vercel_app.py"
+      "destination": "api/index.py"
     },
     {
       "source": "/assets/(.*)",
-      "destination": "/frontend/dist/assets/$1"
+      "destination": "frontend/dist/assets/$1"
     },
     {
       "source": "/img/(.*)",
-      "destination": "/frontend/dist/img/$1"
+      "destination": "frontend/dist/img/$1"
     },
     {
-        "source": "/locales/(.*)",
-        "destination": "/frontend/dist/locales/$1"
+      "source": "/locales/(.*)",
+      "destination": "frontend/dist/locales/$1"
     },
     {
       "source": "/(.*)",
-      "destination": "/frontend/dist/index.html"
+      "destination": "frontend/dist/index.html"
     }
   ]
 }

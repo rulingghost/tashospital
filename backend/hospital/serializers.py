@@ -234,15 +234,21 @@ class PatientCardSerializer(serializers.ModelSerializer):
         # Güncellenmiş instance'ı kaydet
         instance.save()
         return instance
-    
     def update(self, instance, validated_data):
         """
-        Mevcut bir izin kaydını günceller.
+        Mevcut bir hasta kartını günceller.
         """
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
         return instance
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if representation.get('patient_image') and not representation['patient_image'].startswith('http') and not representation['patient_image'].startswith('/media/'):
+            filename = representation['patient_image'].split('/')[-1]
+            representation['patient_image'] = f"/media/images/patient_images/{filename}"
+        return representation
 
 class PopulationCardSerializer(serializers.ModelSerializer):
     class Meta:
@@ -523,12 +529,19 @@ class WorkerSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """
-        Var olan bir Worker nesnesini güncellemek için özelleştirilmiş metot.
+        Var olan bir çalışan nesnesini güncellemek için özelleştirilmiş metot.
         """
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
         return instance
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if representation.get('worker_image') and not representation['worker_image'].startswith('http') and not representation['worker_image'].startswith('/media/'):
+            filename = representation['worker_image'].split('/')[-1]
+            representation['worker_image'] = f"/media/images/worker_images/{filename}"
+        return representation
     
 class WareHouseSerializer(serializers.ModelSerializer):
     wh_stocks = StockSerializer(many=True, read_only=True)

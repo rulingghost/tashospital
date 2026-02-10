@@ -1,0 +1,168 @@
+
+:root
+{
+	--duration: 1.5s;
+	--container-size: 250px;
+	--box-size: 33px;
+	--box-border-radius: 15%;
+}
+
+.status.waiting {
+    background-color: #FFC107;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status.processing {
+    background-color: #17A2B8;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status.successful {
+    background-color: #28A745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status.failed {
+    background-color: #DC3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status.red {
+    background-color: #FF073A;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+.stock-list li{
+    @apply w-full py-5 text-center  text-lg hover:bg-slate-100/15 cursor-pointer rounded-xl
+}
+
+/* styles.css veya ilgili stil dosyanıza ekleyin */
+.scrollbar-custom {
+    overflow: auto;
+    width: 1640px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Dikey Scrollbar */
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 8px; /* Dikey Scrollbar genişliği */
+  }
+  
+  /* Dikey Scrollbar Thumbs */
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background-color: #06b6d4; /* Dikey kaydırma çubuğu rengi */
+    border-radius: 10px; /* Köşeleri yuvarlaştır */
+  }
+  
+  /* Dikey Scrollbar Track */
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: #e5e7eb; /* Dikey kaydırma çubuğunun arka plan rengi */
+  }
+  
+  /* Yatay Scrollbar */
+  .scrollbar-custom::-webkit-scrollbar:horizontal {
+    height: 8px; /* Yatay Scrollbar yüksekliği */
+  }
+  
+  /* Yatay Scrollbar Thumbs */
+  .scrollbar-custom::-webkit-scrollbar-thumb:horizontal {
+    background-color: #06b6d4; /* Yatay kaydırma çubuğu rengi */
+    border-radius: 10px; /* Köşeleri yuvarlaştır */
+  }
+  
+  /* Yatay Scrollbar Track */
+  .scrollbar-custom::-webkit-scrollbar-track:horizontal {
+    background: #e5e7eb; /* Yatay kaydırma çubuğunun arka plan rengi */
+  }
+
+
+  .loading-placeholder {
+    display: inline-block;
+    width: 100%;               /* Yazının genişliği kadar */
+    height: 1em;               /* Yazının yüksekliği kadar */
+    background: #e0e0e0;       /* Gri arka plan */
+    border-radius: 14px;        /* Kenarları yuvarlat */
+    animation: shimmer 1.5s infinite; /* Dalgalanma animasyonu */
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: 200px 0;
+    }
+  }
+
+  .loading-placeholder {
+    display: inline-block;
+    width: 100%;
+    height: 1em;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    border-radius: 14px;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .entryarea{
+    position: relative;
+  }
+  .entryarea input{
+    @apply mt-1 block w-full rounded-xl bg-slate-100 border-none outline-none p-3;    
+    transition: 0.1s ease;
+  }
+  .labelline{
+    @apply tracking-wide cursor-text;
+    padding: 0px 15px;
+    position: absolute;
+    left: 0;
+    top: 16px;
+    color: gray;
+    transition: 0.2s ease;
+  }
+.entryarea input:focus + .labelline,
+.entryarea input:not(:placeholder-shown) + .labelline,
+.entryarea textarea:focus + .labelline,
+.entryarea textarea:not(:placeholder-shown) + .labelline,
+.entryarea select:focus + .labelline,
+.entryarea select:not(:placeholder-shown) + .labelline {
+  color: rgb(77, 77, 77);
+  height: 30px;
+  line-height: 30px;
+  background: #fff;
+  border-radius: 10px;
+  transform: translate(-7px, -32px) scale(0.8);
+  pointer-events: none;
+  z-index: 111111;
+}
+
+
+
+
+.chart-container {
+  position: absolute;
+  top: 0;
+  left: -20%;
+  transform: translateX(-50%);
+  will-change: transform;
+  padding: 40px;
+}
+
+
+
+
+
+
+

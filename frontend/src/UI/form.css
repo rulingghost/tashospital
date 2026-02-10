@@ -1,0 +1,562 @@
+#form {
+	padding:35px 0px;
+}
+#form .formContent {
+	box-shadow:0px 0px 0px 1px rgba(0,0,0,0.5);
+	border-radius: 5px;
+	overflow: hidden;
+}
+#form .head {
+	background-color:var(--primaryColor);
+	padding:10px;
+	display:flex;
+	justify-content: space-between;
+	color:whitesmoke;
+	margin-bottom:15px;
+}
+#form .head > div {
+	width: 100%;
+}
+#form .head > div:nth-child(2) {
+	text-align: center;
+}
+#form .head > div:last-child {
+	font-weight: 300;
+	display:flex;
+	align-items: flex-end;
+}
+#form .head > div:last-child label {
+	opacity: .8;
+	margin-right:10px;
+	font-size:14px;
+}
+#form .head > div:last-child input[type="date"] {
+	background-color:transparent;
+	border:none;
+	border-bottom:1px dashed rgba(255,255,255,.4);
+	width: 40%;
+	color:whitesmoke;
+	appearance: none;              /* Tüm tarayıcılar için */
+    -webkit-appearance: none;      /* Safari ve Chrome için */
+    -moz-appearance: none;         /* Firefox için */
+}
+
+#form .head > div:last-child input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);             /* İkonun rengini tersine çevirir (whitesmoke görünümü) */
+    opacity: .8;                    /* Görünürlüğünü sağlar */
+}
+
+#form .head > div:last-child input[type="date"]::-webkit-inner-spin-button, 
+#form .head > div:last-child input[type="date"]::-webkit-clear-button {
+    display: none;                 /* Clear butonu ve spin butonlarını gizler */
+}
+
+
+#form .head img {
+	height: 26px;
+}
+#form .inputBox {
+	position: relative;
+}
+#form ul li.inputBox {
+	display:flex;
+	align-items: flex-end;
+	margin-bottom: 5px;
+}
+#form ul li.inputBox label {
+	white-space: nowrap;
+	display:inline-block;
+	color:var(--textColor);
+	width:100% ;
+	font-size:14px;
+}
+#form .inputBox input {
+	width: 100%;
+	padding:0px 15px;
+	line-height: 36px;
+	border:none;
+	border-bottom:1px dashed rgba(0,0,0,0.2);
+	background-color:transparent;
+}
+#form .logoContent {
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
+#form .logoContent img {
+	max-height: 100px;
+}
+#form .box {
+	margin-top:15px;
+	margin-bottom:15px;
+	padding-left:35px;
+	padding-right:35px;
+}
+#form .imgBox {
+	padding-left:0px;
+}
+#form .surgeries .title {
+	font-weight: 600;
+	font-size:16px;
+	color:var(--primaryColor);
+	margin-bottom:15px;
+}
+#form .surgeries li.inputBox {
+	font-weight: 600;
+	font-size:16px;
+	color:var(--primaryColor);
+	margin-bottom:15px;
+}
+#form .surgeries li.inputBox label {
+	width:initial;
+	margin-right:15px;
+}
+#form .dates li.inputBox {
+	flex-wrap: wrap;
+	width: 100%;
+	margin-bottom:10px;
+}
+
+#form .dates li.inputBox label {
+	width: 100%;
+	text-align: center;
+	color:var(--textColor);
+	display:block;
+	margin-bottom: 10px;
+}
+#form .dates li.inputBox input {
+	width: 100%;
+	text-align: center;
+	color:var(--textColor);
+	display:block;
+	border:solid 1px rgba(0,0,0,0.3);
+	padding:25px 10px;
+}
+
+/* ========== Saç Ekim Formu Ek Stilleri ==========  */
+#form.sacEkim {}
+#form.sacEkim .head {
+	flex-wrap:wrap !important;
+	background-color:transparent !important;
+	color:var(--textColor);
+	justify-content: center;
+	text-align: center;
+}
+#form.sacEkim .head div {
+	text-align: center;
+	justify-content: center;
+	padding:5px 0px;
+	font-weight: 500;
+}
+#form.sacEkim .head input {
+	text-align: center;
+	justify-content: center;
+	padding:5px 0px;
+	background-color:transparent;
+	border:none;
+	border-bottom:1px dashed rgba(0,0,0,.4);
+	width: 40%;
+	min-width: 250px;
+}
+#form.sacEkim .head > div:last-child {
+	font-weight: 600;
+}
+#form.sacEkim .box .title {
+	margin-top:35px;
+	padding-top:25px;
+	border-top:1px solid rgba(0,0,0,0.3);
+}
+#form.sacEkim .box .inputBox span {
+	white-space: nowrap;
+    display: inline-block;
+    color: var(--textColor);
+    width: initial;
+    font-size: 14px;
+    min-width: 35%;
+}
+#form.sacEkim .box .inputBox.checkBoxContent label {
+	width:50% !important;
+	justify-content: flex-start !important;
+}
+#form.sacEkim .box .inputBox.checkBoxContent label input {
+	width:initial !important;
+	margin-right:7px;
+}
+#form.sacEkim .box .inputBox.checkBoxContent {
+	padding-top: 22px;
+    padding-bottom: 7px;
+}
+#form.sacEkim ul li.inputBox label {
+	width: initial !important;
+}
+#form.sacEkim ul li.inputBox {
+	justify-content: space-between;
+}
+#form.sacEkim ul li.inputBox input {
+	max-width: 65%;
+}
+#form.sacEkim ul li article {
+	margin-top:25px;
+	margin-bottom:25px;
+}
+#form.sacEkim .dokulme img {
+	height: 70px;
+	cursor: pointer;
+}
+#form.sacEkim .dokulme {
+	margin-top:35px;
+}
+#form.sacEkim .dokulme > div {
+	margin-bottom:45px;
+}
+#form.sacEkim .dokulme label {
+	display:flex;
+	cursor: pointer;
+}
+#form.sacEkim .dokulme label input {
+	height: 20px;
+	width:initial;
+	cursor: pointer;
+}
+
+
+#form.dis form {
+	padding:25px;
+}
+#form.dis .head {
+	background-color:transparent;
+	margin-top:35px;
+	margin-bottom:45px;
+	flex-wrap: wrap;
+}
+#form.dis .head h2 {
+	text-align: center;
+	width: 100%;
+	font-size:30px;
+	color:var(--primaryColor);
+}
+#form.dis .head article {
+	text-align: center;
+
+}
+#form.dis .toggles .toggle {
+	background-color:transparent;
+	width: 46px;
+	height: 46px;
+	position: absolute;
+	border-radius: 100%;
+	cursor: pointer;
+}
+#form.dis .toggles .toggle:hover {
+	cursor: pointer;
+	background-color:#007aff5e;
+}
+#form.dis .toggles .toggle.active {
+	background-color:#007aff5e;
+}
+#form.dis .delete-icon {
+	float: right;
+    color: var(--textColor);
+    font-weight: 600;
+    font-size: 18px;
+    opacity: .4;
+    cursor: pointer;
+    transition: .2s;
+    margin-right:18px;
+}
+#form.dis .delete-icon:hover {
+    opacity: 1
+}
+.toggleContent {
+	position: relative;
+}
+.toggles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.toggle {
+    position: absolute;
+    width: 5%; /* Diş tıklanabilir alan genişliği */
+    height: 8%; /* Diş tıklanabilir alan yüksekliği */
+    background-color: rgba(255, 255, 255, 0.3); /* Görünmez alan; test için şeffaf */
+    border-radius: 50%;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+/* Dişlerin konumuna göre toggle alanlarını yerleştirme */
+/* Üst Çene */
+.toggle[data-no="11"] { 
+	left: 40%;
+    top: 2%;
+}
+.toggle[data-no="12"] { 
+	left: 32.1%;
+    top: 3.5%;
+}
+.toggle[data-no="13"] { 
+	left: 23%;
+    top: 6%;
+}
+.toggle[data-no="14"] { 
+	left: 19%;
+    top: 11%;
+}
+.toggle[data-no="15"] { 
+	left: 16%;
+	top: 16%;
+}
+.toggle[data-no="16"] { 
+	left: 13%;
+    top: 23%;
+}
+.toggle[data-no="17"] {
+	left: 11%;
+    top: 31%;
+ }
+.toggle[data-no="18"] {
+	left: 10%;
+	top: 38%;
+}
+
+.toggle[data-no="21"] {
+	left: 51%;
+    top: 2%;
+}
+.toggle[data-no="22"] {
+	left: 60%;
+    top: 4%;
+}
+.toggle[data-no="23"] {
+	left: 68%;
+    top: 7%;
+}
+.toggle[data-no="24"] {
+	left: 71%;
+    top: 12%;
+}
+.toggle[data-no="25"] {
+	left: 75%;
+    top: 17%;
+}
+.toggle[data-no="26"] {
+	left: 78%;
+    top: 23%;
+}
+.toggle[data-no="27"] {
+	left: 79%;
+    top: 32%;
+}
+.toggle[data-no="28"] {
+	left: 80%;
+    top: 39%;
+}
+
+/* Alt Çene */
+.toggle[data-no="41"] {
+	left: 42%;
+    top: 95%;
+}
+.toggle[data-no="42"] {
+	left: 35%;
+    top: 94%;
+}
+.toggle[data-no="43"] {
+	left: 28%;
+    top: 91%;
+}
+.toggle[data-no="44"] {
+	left: 23%;
+    top: 86.5%;
+}
+.toggle[data-no="45"] {
+	left: 19%;
+    top: 82%;
+}
+.toggle[data-no="46"] {
+	left: 16%;
+    top: 75%;
+}
+.toggle[data-no="47"] {
+	left: 14%;
+    top: 66%;
+}
+.toggle[data-no="48"] {
+	left: 12%;
+    top: 58%;
+}
+
+.toggle[data-no="31"] {
+	left: 49%;
+    top: 95%;
+}
+.toggle[data-no="32"] {
+	left: 56%;
+    top: 93%;
+}
+.toggle[data-no="33"] {
+	left: 63%;
+    top: 90.6%;
+}
+.toggle[data-no="34"] {
+	left: 68.3%;
+    top: 86%;
+}
+.toggle[data-no="35"] {
+	left: 72%;
+    top: 81%;
+}
+.toggle[data-no="36"] {
+	left: 75%;
+    top: 74%;
+}
+.toggle[data-no="37"] {
+	left: 77%;
+    top: 65.5%;
+}
+.toggle[data-no="38"] {
+	left: 79%;
+    top: 57.5%;
+}
+
+#bubble {
+	display:none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+#bubble .dialog {
+	background-color:white;
+	padding:35px;
+	border-radius: 5px;
+	width: 30%;
+}
+#bubble .dialog textarea {
+	width: 100%;
+	padding: 15px;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
+
+ul {
+    margin-top: 20px;
+}
+
+@keyframes liquidate {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.modal-hide {
+  animation: blurOut 2s forwards; /* Animasyon süresi 2 saniye oldu */
+}
+#saveYorum {
+	border-radius: 5px;
+	line-height: 36px;
+}
+#yorumlar {
+	height: 71vh;
+	overflow-y: auto;
+}
+#yorumlar li {
+	padding:10px 10px;
+	border-bottom:1px solid rgba(0,0,0,0.1);
+	border-radius: 5px;
+	transition:.2s;;
+}
+#yorumlar li:hover {
+	background-color:#ddddee;
+}
+#yorumlar li div {
+	margin-bottom: 5px;
+    background-color: #ededf6;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    position: relative;
+    transition:.2s;
+}
+#yorumlar li div:before {
+	content: "\e995";
+    position: absolute;
+    left: 19px;
+    top: -16px;
+    font-size: 16px;
+    line-height: 25px;
+    color: #ededf6;
+    font-family: 'default';
+    transition:.2s;
+}
+#yorumlar li div:hover {
+    background-color: #cccce1;
+}
+#yorumlar li div:hover:before {
+    color: #cccce1;
+}
+#yorumlar li div strong,
+#yorumlar li div span {
+	color:var(--textColor);
+	font-size:12px;
+}
+#yorumlar li > div .delete-icon {
+	line-height: 0px;
+	margin-right:0px !important;
+}
+#form.dis .formContent .title {
+	color:var(--textColor);
+	opacity: .8;
+}
+
+
+
+@keyframes blurOut {
+	0% {
+	    opacity: 1;
+	    filter: blur(0px) saturate(1);
+	    transform: scale(1);
+	}
+	100% {
+	    opacity: 0;
+	    filter: blur(30px) saturate(0);
+	    transform: scale(1.5);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

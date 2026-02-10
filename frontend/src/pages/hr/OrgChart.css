@@ -1,0 +1,419 @@
+.draggable-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transform: none;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.node-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top center;
+  margin: 0 auto;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.node-container::before {
+  content: '';
+  position: absolute;
+  top: -2.5em;
+  left: 50%;
+  width: 2px;
+  height: 2.5em;
+  background-color: #e0e0e0;
+  transform: translateX(-50%);
+  display: none;
+}
+.node-container::after {
+  content: '';
+  position: absolute;
+  top: -2.5em;
+  left: 50%;
+  width: 50%;
+  height: 2px;
+  background-color: #e0e0e0;
+  display: none;
+}
+
+/* Node'ların altına düz çizgi */
+.node::after {
+  content: '';
+  position: absolute;
+  bottom: -2.6em;
+  left: 50%;
+  width: 2px;
+  height: 2.5em;
+  background-color: #e0e0e0;
+  transform: translateX(-50%);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sadece children container'ı olan ve expanded durumundaki node'lar için after'ı göster */
+.node:has(+ .children-container.expanded)::after {
+  display: block;
+  opacity: 1;
+}
+
+/* İlk node için sağa doğru çizgi */
+.children-container .node-container:first-child::after {
+  left: 50%;
+  width: 50%;
+}
+
+/* Son node için sola doğru çizgi */
+.children-container .node-container:last-child::after {
+  left: 0;
+  width: 50%;
+}
+
+/* Ortadaki node'lar için çift yönlü çizgi */
+.children-container .node-container:not(:first-child):not(:last-child):not(:only-child)::after {
+  left: 0;
+  width: 100%;
+}
+
+/* Tek node varsa çizgi olmasın */
+.children-container .node-container:only-child::after {
+  display: none;
+}
+
+.draggable-container > .node-container::before {
+  display: none;
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 1.25em;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #00000010 !important;
+  border-radius: 1em;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 2.5em;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: default;
+  min-width: 18.75em;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.node::before {
+  content: '';
+  position: absolute;
+  top: 3%;
+  left: 0;
+  width: 0.25em;
+  height: 94%;
+  background: linear-gradient(to bottom, #6366f1, #a855f7);
+  border-radius: 1.5em 0 0 1.5em;
+  opacity: 0.8;
+}
+
+
+
+.node.dragging {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.node:active {
+  cursor: grabbing;
+}
+
+.avatar {
+  width: 3.125em;
+  height: 3.125em;
+  border-radius: 0.875em;
+  margin-right: 1.25em;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(45deg, #6366f1, #a855f7);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.node-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.node-content {
+  flex: 1;
+}
+
+.node-actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.9375em;
+  padding: 0 0.3125em;
+  gap: 0.625em;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 0.75em;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.625em;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.8125em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  flex: 1;
+  margin: 0 0.3125em;
+  justify-content: center;
+  outline: none;
+}
+
+.action-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.action-button:active {
+  transform: translateY(0);
+}
+
+.action-button svg {
+  width: 1em;
+  height: 1em;
+  stroke: #6366f1;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.action-button:hover svg {
+  stroke: #a855f7;
+}
+
+.action-label {
+  font-weight: 500;
+  margin-left: 0.3125em;
+  white-space: nowrap;
+  color: #000;
+}
+
+.add-button {
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  width: 1.3em;
+  height: 1.3em;
+  padding: 0;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  border: 0.125em solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%) translateZ(0);
+  color: white;
+  font-size: 1.125em;
+  line-height: 1.3em;
+  z-index: 2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.2);
+  outline: none;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.node:hover .add-button {
+  display: flex;
+}
+
+.add-button:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.node h3 {
+  margin: 0;
+  color: #000;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.01875em;
+}
+
+.node p {
+  margin: 0.25em 0 0;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 0.875em;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.0125em;
+}
+
+.children-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-top: 2.5em;
+  width: 100%;
+  overflow: visible;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.children-container.expanded {
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  margin-top: 2.5em;
+  transform: translateZ(0);
+  pointer-events: all;
+  position: relative;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.children-container.collapsed {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  margin: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.children-container .node-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.children-container.expanded .node-container {
+  transform: none;
+  opacity: 1;
+  padding: 0 1em;
+}
+
+.children-container.collapsed .node-container {
+  transform: none;
+  opacity: 0;
+}
+
+.chart-container {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.toggle-button {
+  position: absolute;
+  bottom: -0.875em;
+  left: 50%;
+  width: 1.3em;
+  height: 1.3em;
+  padding: 0;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  border: 0.125em solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%) translateZ(0);
+  color: white;
+  font-size: 1.125em;
+  line-height: 1.3em;
+  z-index: 2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.2);
+  outline: none;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.toggle-button:hover {
+  transform: translateX(-50%);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Arka plan rengi */
+.app-container {  
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+  overflow: hidden;
+  user-select: none;
+  position: relative;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Çizgiler için stil */
+.node-container::before,
+.node-container::after,
+.node::after {
+  background: #0f1fa8
+}
+
+/* Child node'lar için yatay çizgiyi göster */
+.children-container .node-container::after {
+  display: block;
+}
+
+/* Child node'lar için dikey çizgiyi göster */
+.children-container .node-container::before {
+  display: block;
+}
+
+.action-button:focus,
+.toggle-button:focus,
+.add-button:focus {
+  outline: none;
+} 

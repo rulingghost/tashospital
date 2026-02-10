@@ -1,0 +1,36 @@
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Backend specific
+__pycache__/
+*.pyc
+*.pyo
+db.sqlite3
+media/
+
+# Frontend specific
+dist/
+dist-ssr/
+*.local
+
+# System files
+.antigravityignore
+start.bat

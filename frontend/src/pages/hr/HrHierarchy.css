@@ -1,0 +1,69 @@
+.tree{
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+.tree ul{
+  padding-top: 20px;
+  position: relative;
+  transition: .5s;
+}
+.tree li{
+  display: inline-table;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 30px;
+  transition: .5s;
+}
+.tree li:before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top: 2px solid #0891b2;
+  width: 51%;
+  height: 30px;
+}
+.tree li:after{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-top: 2px solid #0891b2;
+  width: 51%;
+  height: 30px;
+}
+.tree li::after{
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #0891b2;
+}
+.tree li:only-child:after, .tree li:only-child:before{
+  display: none;
+}
+.tree li:only-child{
+  padding-top: 0;
+}
+.tree li:first-child:before, .tree li:only-child:after{
+  border: 0 none;
+}
+.tree li:last-child:before{
+  border-right: 2px solid #0891b2;
+  border-radius: 0px 5px 0px 0px;
+}
+.tree li:last-child:after{
+  border: none;
+}
+.tree li:first-child:after{
+  border-radius: 5px 0px 0px 0px;
+}
+.tree ul ul::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid #0891b2;
+  width: 0;
+  height: 20px;
+}

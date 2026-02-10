@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 14.5px;
+  }
+}
+
+  body {
+    @apply font-sans;
+  }
+
+::-webkit-scrollbar {
+    width: 0;
+  }
+  
+.patient-detail-list li{
+    @apply text-center text-gray-600 font-semibold text-lg hover:text-cyan-700 cursor-pointer hover:scale-105 transition-all duration-100
+  }
+  .patient-detail-list a{
+    @apply inline-block py-5 px-1
+  }
+  .add-modal select, .add-modal input{
+    @apply outline-none
+  }

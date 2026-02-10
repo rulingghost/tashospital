@@ -1,0 +1,17 @@
+const form = new FormData();
+form.append('attachments', 'data:image/jpeg;name=);
+
+const options = {
+  method: 'POST',
+  headers: {
+    accept: 'application/json',
+    'X-API-KEY': 'kCThBP0Y.ekJeRP5fDf50Y/jiO+j5c38Waz4PxbQ5oUTkpWtWYIE='
+  }
+};
+
+options.body = form;
+
+fetch('https://api10.unipile.com:14022/api/v1/chats/UMbHpZZRUEGk_R-icbCp3g/messages', options)
+  .then(res => res.json())
+  .then(res => console.log(res))
+  .catch(err => console.error(err));

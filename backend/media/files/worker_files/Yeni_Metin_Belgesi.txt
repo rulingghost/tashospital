@@ -1,0 +1,393 @@
+left nav 39-41 
+<div className={classNames("sidebar h-full  bg-cyan-500 fixed top-0 left-0 z-10 transition-all ease-in-out duration-500",
+            close ? "w-[78px]" : "",
+            "w-[78px] sm:block sm:fixed lg:w-[260px]"
+
+rootlayout 
+1
+import React, { useEffect, useState } from 'react'
+
+16 +
+useEffect(() => {
+        const handleResize = () => {
+          if (window.innerWidth < 1025) {
+            setExpanded(false); // Ekran 1025px'ten küçükse, expanded'ı false yap
+          } else {
+            setExpanded(true); // Ekran 1025px veya daha büyükse, expanded'ı true yap
+          }
+        };
+    
+        // İlk renderda ve her ekran boyutu değiştiğinde kontrol et
+        handleResize(); 
+    
+        // Resize event'ini dinle
+        window.addEventListener("resize", handleResize);
+    
+        // Component unmount olduğunda event listener'ı temizle
+        return () => {
+          window.removeEventListener("resize", handleResize);
+        };
+      }, []);
+
+
+30
+<div className='w-screen h-screen flex justify-between overflow-hidden'>
+
+32-34
+
+<div className={` h-full transition-all duration-300 ease-in-out ${
+            !expanded ? "!w-16" : "w-[12%]"
+            
+49-50
+
+className={`h-full transition-all duration-200 bg-slate-100 ${
+            expanded ? "w-[88%]" : "!w-[calc(100%-64px)]"  
+
+patient
+7-8
+import TableComp2 from '../../UI/TableComp2';
+import { useNavigate } from 'react-router-dom';
+
+13+
+ const navigate = useNavigate()
+
+18-19
+ const [ activePage, setActivePage] = useState(1)
+    const { data: patients, error, isLoading, refetch } = useGetPatientsQuery({page: activePage});
+
+21
+console.log(activePage);
+
+40
+createModal("patient", patient, true, selectedPatientId);
+
+table componenti
+
+<TableComp2
+            thead={[
+                { name: t('name'), sortable: true, minWidth: 180 },
+                { name: t('surname'), sortable: true, minWidth: 130 },
+                { name: t("Attending Doctor"), sortable: true, minWidth: 160 },                               
+                { name: t('phone') },
+                { name: t('email'), sortable: true },
+                { name: t('location'), sortable: true },
+                { name: t('tcPassport') },
+                { name: t("Patient Department"), sortable: true },
+                { name: t("Registrar"), sortable: true },
+                { name: t("Approving Doctor"), sortable: true },
+                { name: t("Entry Date/Time"), sortable: true },
+                { name: t("Discharge Date/Time"), sortable: true },
+                { name: t("Insurance"), sortable: true },
+                { name: t('actions'), action: true},
+                { name: "none"},
+            ]}
+            tbody={patients.results.map((user) => [        
+                <button 
+                    type='button' 
+                    onClick={ () => navigate(`/patients/${user.id}`) }
+                    className='flex items-center gap-x-3 w-full'>
+                    <img src={user.patient_image} alt={`${user.first_name} avatar`} className="w-10 h-10 rounded-full" />
+                    <p>{user.first_name}</p>
+                </button>,              
+                user.last_name,        
+                user.ilgilenenDoktor,       
+                user.mobile_phone1, 
+                user.email,
+                user.city,                 
+                user.national_id || '',   
+                user.hastaBolumu || '',
+                user.kayitAcan || '',   
+                user.onaylayanDoktor || '', 
+                user.girisTarih || '',  
+                user.taburcuTarih || '', 
+                user.sigorta || '',                   
+                <div className='flex gap-x-2'>
+                    <button 
+                        key="edit" 
+                        onClick={() => {    
+                            setFirstLoad(true)                              
+                            setSelectedPatientId(user.id)  
+                            setTimeout(()=>{setEditToggle(prev => !prev)}, 200)                   
+                        }}
+                        className='h-8 px-4 flex items-center rounded bg-cyan-500 text-white'>
+                        {t('edit')}
+                    </button>
+                    <button 
+                        key="delete" 
+                        onClick={async () => { 
+                            await deletePatient(user.id) 
+                            refetch()
+                        }}
+                        className='h-8 px-4 flex items-center rounded bg-orange-500 text-white'>
+                        {t('delete')}
+                    </button>
+                </div>
+                         
+               
+            ])}
+            searchable = {true}
+            tableTitle = {t('patientList')}
+            modal = {'patient'}
+            scroll = {true}
+            page = {patients.count}
+            activePage = {activePage}
+            setActivePage = {setActivePage}
+            />
+
+
+
+
+stockorder
+
+import React, { useState } from 'react';
+import TableComp2 from '../../UI/TableComp2';
+import { motion } from 'framer-motion';
+import { useGetStockOrdersQuery } from '../../store/patient2';
+import { formatDateToShow } from '../../components/Utils/DateFormat';
+import { ImBoxRemove } from "react-icons/im";
+import { createModal } from '../../components/Utils/Modal';
+
+const StockOrder = () => {
+
+    const [ activePage, setActivePage] = useState(1)
+    const {data, isLoading} = useGetStockOrdersQuery(activePage)
+    console.log(data);
+    console.log(activePage);
+    
+
+    const thead = [
+        // { name: '', sortable: false, width: 30 },
+        { name: 'ÜRÜN', sortable: true },
+        { name: 'ALINAN ADET/MİKTAR', sortable: true },
+        { name: 'TARİH', sortable: true },
+        { name: 'DEPO', sortable: true },
+        { name: 'POZİSYON', sortable: true },
+        { name: 'ÜRÜN GRUBU', sortable: true },
+        { name: 'DURUM', sortable: false, width: 120 }
+    ];
+
+    
+    if(isLoading) {
+        return <div>Yükleniyor...</div>
+    }
+
+  return (
+    <motion.div 
+        initial={{opacity:0}}   
+        animate={{opacity:1}}
+        className="w-full h-[99%]">
+        <TableComp2
+            thead={thead}
+            tbody={data.results.map(order => [
+                // <button ><ImBoxRemove size={20} color='#0093ad' /></button>,
+                order?.order_name || "",
+                order?.order_number || "",
+                order?.order_startdate ? formatDateToShow(order.order_startdate) : "",
+                order?.order_wharehouse || "",
+                order?.order_pozition || "",
+                order?.order_group || "",
+                <button
+                    onClick={()=>{
+                        createModal("stock", order.id)
+                    }}
+                    className='bg-cyan-600 text-white px-2 py-1 rounded-lg hover:bg-cyan-700'
+                >
+                    Tamamla
+                </button>
+            ])}
+            searchable={true}
+            tableTitle={"SATIN ALMA TALEPLERİ"}   
+            modal={"stockOrder"} 
+            page={data.count}  
+            activePage={activePage} 
+            setActivePage={setActivePage}     
+        />
+    </motion.div>
+  )
+}
+
+export default StockOrder
+
+
+
+stockproducts
+
+import React from 'react'
+import TableComp from '../../UI/TableComp'
+import { motion } from 'framer-motion'
+
+const StockProducts = () => {
+
+    const thead = [
+        { name: 'Ürün Adı', sortable: true },
+        { name: 'Stok', sortable: true },
+        { name: 'S.K.T', sortable: true },
+        { name: 'Ürün Grubu', sortable: true },
+        { name: '', width: 50 }, // İşlemler sütunu, simge için küçük bir genişlik
+      ];
+
+      const tbody = [
+        {
+          productName: 'Adrenalin 0,5 mg (osel) amp',
+          stock: '163 Ampul',
+          expiryDate: '30.01.2028',
+          productGroup: 'Adrenalin Ritim Düzenleyici',
+          actions: (
+            <button key="details-1" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Akineton 5mg 5 amp',
+          stock: '7 Ampul',
+          expiryDate: '30.03.2025',
+          productGroup: 'Sinir Sistemi Parkinson',
+          actions: (
+            <button key="details-2" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Arcolit 20 mg Flakon',
+          stock: '92 Ampul',
+          expiryDate: '31.12.2024',
+          productGroup: 'İltihab Giderici',
+          actions: (
+            <button key="details-3" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Artimol %2 Ampul',
+          stock: '111 Ampul',
+          expiryDate: '30.12.2024',
+          productGroup: 'Lokal Anestezik',
+          actions: (
+            <button key="details-4" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Arnica 75gr Krem',
+          stock: '61 Adet',
+          expiryDate: '01.06.2025',
+          productGroup: 'Krem Morluk Tedavisi',
+          actions: (
+            <button key="details-5" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Bheptal Ampul',
+          stock: '124 Ampul',
+          expiryDate: '30.08.2026',
+          productGroup: 'B Vitamini',
+          actions: (
+            <button key="details-6" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Bephantenhe Ampul',
+          stock: '17 Ampul',
+          expiryDate: '31.03.2028',
+          productGroup: 'Bağışıklık Kazandıran',
+          actions: (
+            <button key="details-7" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Bepanthol Cilt Bakım Kremi 30gr',
+          stock: '38 Adet',
+          expiryDate: '30.03.2025',
+          productGroup: 'Bakım Kremi',
+          actions: (
+            <button key="details-8" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Bioflex %0.9 İzotonik 500 Sod. Klor 250ml',
+          stock: '107 Adet',
+          expiryDate: '30.03.2026',
+          productGroup: 'Serum İzotonik',
+          actions: (
+            <button key="details-9" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Bioflex %0.9 İzotonik 500 Sod. Klor Sol. 1000ml',
+          stock: '53 Adet',
+          expiryDate: '31.03.2026',
+          productGroup: 'Serum İzotonik',
+          actions: (
+            <button key="details-10" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Bioflex %0.9 İzotonik 500 Sodyum Klorur Sol. 500ml',
+          stock: '53 Adet',
+          expiryDate: '01.02.2026',
+          productGroup: 'Serum İzotonik',
+          actions: (
+            <button key="details-11" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+        {
+          productName: 'Burun Damlası (Nasal Drops) 20ml',
+          stock: '335 Adet',
+          expiryDate: '30.01.2026',
+          productGroup: 'Burun Nemlendirici',
+          actions: (
+            <button key="details-12" className="h-8 px-3 flex items-center justify-center rounded-full bg-cyan-500 text-white text-lg">
+              &gt;
+            </button>
+          )
+        },
+      ];
+      
+  return (
+    <motion.div 
+        initial={{opacity:0}}   
+        animate={{opacity:1}}
+        className="w-[95%] h-[99%]">
+        <TableComp
+            thead={thead}
+            tbody={tbody.map(row => [
+            row.productName,
+            row.stock,
+            row.expiryDate,
+            row.productGroup,
+            row.actions
+            ])}
+            searchable={true}
+            tableTitle= {"ÜRÜNLER"} 
+            modal={'product'}           
+        />
+    </motion.div>
+  )
+}
+
+export default StockProducts
+
+
+
+
+
+
+

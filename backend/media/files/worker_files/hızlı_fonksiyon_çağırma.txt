@@ -1,0 +1,4 @@
+(() => {
+    // Kod bloğu
+    return <span>...</span>;
+})()

@@ -1,0 +1,25 @@
+	-----SİLAHLAR-----
+
+
+	-----KOLYE-----
+
+Hit Chance - 20lvl
+Ranged Hit Chance - 20lvl
+
+Magic Hit Chance - 20lvl
+Boss Melee Hit - 20lvl
+
+
+
+
+	-----YÜZÜK-----
+
+
+	-----KEMER-----
+Boss Magic Heavy - 20lvl
+Magic Hit Chance 20lvl
+Boss Heavy Atack - 20lvl
+Melee Hit Chance - 20lvl
+Ranged Heavy Attack Eva - 20lvl
+
+	-----BİLEKLİK-----

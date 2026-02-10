@@ -70,7 +70,11 @@ const LoginPage = () => {
                     // onClick={()=> navigate("/patients")}
                     className='bg-cyan-600 mt-10 w-full text-white text-lg font-semibold px-7 py-2 rounded-full '>Giriş Yap</button>
             </form>
-            {error && <p>Giriş hatası: {error.data?.detail || 'Bilinmeyen bir hata oluştu'}</p>}
+            {error && <p className="text-red-500 text-center text-sm px-4">
+                Hata: {JSON.stringify(error).substring(0, 100)}... <br/>
+                {error.data && typeof error.data === 'string' ? error.data : ''}
+            </p>}
+
         </div>
     </div>
   )

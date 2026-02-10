@@ -17,8 +17,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 
 from django_filters import rest_framework as filters
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
+# from asgiref.sync import async_to_sync
+# from channels.layers import get_channel_layer
+
 from django.db.models import Sum
 from django.db import models
 from rest_framework.pagination import PageNumberPagination
@@ -47,15 +48,15 @@ def webhook(request):
         message_data = payload.get('data', {})
         message_content = message_data.get('message', {}).get('content')
         
-        # WebSocket kanalına gönder
-        channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.group_send)(
-            "message_group",
-            {
-                "type": "send_message",
-                "message": message_content,
-            }
-        )
+        # WebSocket kanalına gönder (Vercel'de devre dışı)
+        # channel_layer = get_channel_layer()
+        # async_to_sync(channel_layer.group_send)(
+        #     "message_group",
+        #     {
+        #         "type": "send_message",
+        #         "message": message_content,
+        #     }
+        # )
         
         # Veritabanına kaydetme veya başka işlemler
         print(f"New message received: {message_content}")

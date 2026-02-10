@@ -1,17 +1,21 @@
 import sys
 import os
+from pathlib import Path
 
-# Add the root directory to the sys.path
-# Vercel's structure: /var/task/
-# Our structure:
-# /api/index.py
-# /backend/backend/settings.py
-# /backend/db.sqlite3
+# Add the project directory to sys.path
+# Vercel's current working directory is the root of the repository
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.append(os.path.join(PROJECT_ROOT, 'backend'))
 
-base_dir = os.path.dirname(os.path.dirname(__file__))
-sys.path.append(os.path.join(base_dir, 'backend'))
+# Important: Set the settings module before anything else
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 
-from backend.wsgi import app
-
-# Vercel needs 'app' to be the entry point
-handler = app
+try:
+    from django.core.wsgi import get_wsgi_application
+    # Initialize the Django WSGI application
+    application = get_wsgi_application()
+    # Handle the request
+    handler = application
+except Exception as e:
+    print(f"Error initializing Django application: {e}")
+    raise e

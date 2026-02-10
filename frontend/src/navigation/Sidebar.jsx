@@ -28,10 +28,13 @@ export default function Sidebar({ children, setExpanded, expanded }) {
     <aside className={`h-screen transition-all`}>
       <nav className="h-full flex flex-col bg-cyan-600 border-r border-cyan-600 shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center border-b border-neutral-200  " >
-          <p className={`font-semibold text-xl text-white overflow-hidden  ${
-              expanded ? "w-32" : "w-0 h-0"              
-            }`}>
-            TAŞ CRM</p>
+          <img
+            src="/img/sarfea-logo.png"
+            className={`overflow-hidden transition-all brightness-0 invert ${
+              expanded ? "w-32" : "w-0"
+            }`}
+            alt="Sarfea Logo"
+          />
           {/* <img
             src="https://img.logoipsum.com/243.svg"
             className={`overflow-hidden transition-all ${

@@ -20,6 +20,12 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         return token
 
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        # Frontend'in beklediği 'role' bilgisini ekle
+        data['role'] = 'admin' if self.user.is_superuser else 'user'
+        return data
+
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note

@@ -27,8 +27,9 @@ db.sqlite3
 media/
 
 # Frontend specific
-dist/
-dist-ssr/
+# dist/
+# dist-ssr/
+
 *.local
 
 # System files

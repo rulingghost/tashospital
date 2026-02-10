@@ -31,7 +31,7 @@ export default function Sidebar({ children, setExpanded, expanded }) {
           <img
             src="/img/sarfea-logo.png"
             className={`overflow-hidden transition-all brightness-0 invert ${
-              expanded ? "w-32" : "w-0"
+              expanded ? "w-32" : "w-10"
             }`}
             alt="Sarfea Logo"
           />
